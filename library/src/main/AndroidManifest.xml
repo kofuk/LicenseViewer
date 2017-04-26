@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
+    package="com.chronoscoper.library.licenseviewer">
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".LicenseListActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light" />
+        <activity
+            android:name=".LicenseActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LicenseListActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light" />
+    </application>
+
+</manifest>
