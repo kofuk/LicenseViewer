@@ -13,7 +13,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chronoscoper.library.licenseviewer">
 
     <application
@@ -22,12 +23,13 @@
 
         <activity
             android:name=".LicenseListActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Light" />
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.DeviceDefault.Light"/>
         <activity
             android:name=".LicenseActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".LicenseListActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Light" />
+            android:theme="@android:style/Theme.DeviceDefault.Light"/>
     </application>
 
 </manifest>
