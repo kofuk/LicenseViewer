@@ -19,6 +19,13 @@ import android.content.Context;
 import android.content.Intent;
 
 public final class LicenseViewer {
+
+    /**
+     * Opens the list of licenses.
+     *
+     * @param context     Android Context
+     * @param windowTitle a string shown as a title of the activity
+     */
     public static void open(Context context, String windowTitle) {
         Intent intent = new Intent(context, LicenseListActivity.class);
         intent.putExtra(LicenseListActivity.EXTRA_TITLE, windowTitle);
