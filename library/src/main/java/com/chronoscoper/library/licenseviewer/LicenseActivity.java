@@ -16,8 +16,6 @@
 package com.chronoscoper.library.licenseviewer;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -28,7 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class LicenseActivity extends Activity {
-    public static final String EXTRA_LICENSE_NAME =
+    static final String EXTRA_LICENSE_NAME =
             "com.chronoscoper.library.licenseviewer.extra.LICENSE_NAME";
 
     @Override
@@ -78,11 +76,5 @@ public class LicenseActivity extends Activity {
             } catch (IOException ignore) {
             }
         }
-    }
-
-    public static void open(Context context, String name) {
-        Intent intent = new Intent(context, LicenseActivity.class);
-        intent.putExtra(EXTRA_LICENSE_NAME, name);
-        context.startActivity(intent);
     }
 }

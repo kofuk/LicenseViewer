@@ -16,7 +16,6 @@
 package com.chronoscoper.library.licenseviewer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,7 +27,7 @@ import android.widget.ListView;
 import java.io.IOException;
 
 public class LicenseListActivity extends Activity {
-    private static final String EXTRA_TITLE = "com.chronoscoper.library.licenseviewer.extra.TITLE";
+    static final String EXTRA_TITLE = "com.chronoscoper.library.licenseviewer.extra.TITLE";
 
     private String[] mLicenses;
 
@@ -63,7 +62,9 @@ public class LicenseListActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LicenseActivity.open(LicenseListActivity.this, mLicenses[position]);
+                Intent intent = new Intent(LicenseListActivity.this, LicenseActivity.class);
+                intent.putExtra(LicenseActivity.EXTRA_LICENSE_NAME, mLicenses[position]);
+                startActivity(intent);
             }
         });
     }
@@ -77,11 +78,5 @@ public class LicenseListActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public static void open(Context context, String title) {
-        Intent intent = new Intent(context, LicenseListActivity.class);
-        intent.putExtra(EXTRA_TITLE, title);
-        context.startActivity(intent);
     }
 }

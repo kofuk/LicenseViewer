@@ -16,9 +16,12 @@
 package com.chronoscoper.library.licenseviewer;
 
 import android.content.Context;
+import android.content.Intent;
 
 public final class LicenseViewer {
     public static void open(Context context, String windowTitle) {
-        LicenseListActivity.open(context, windowTitle);
+        Intent intent = new Intent(context, LicenseListActivity.class);
+        intent.putExtra(LicenseListActivity.EXTRA_TITLE, windowTitle);
+        context.startActivity(intent);
     }
 }
