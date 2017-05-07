@@ -17,6 +17,7 @@ package com.chronoscoper.android.licenseviewer;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.chronoscoper.library.licenseviewer.LicenseViewer;
 
@@ -26,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
+    public void open(View v) {
         LicenseViewer.open(this, "Licenses");
     }
 }
