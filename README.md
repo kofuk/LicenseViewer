@@ -17,7 +17,7 @@ repositories {
 ```
 module `build.gradle`
 ```
-compile 'com.chronoscoper.library:license-viewer:1.1'
+compile 'com.chronoscoper.library:license-viewer:1.3'
 ```
 
 1. Put your license text files in your `assets/license` folder. (File name must be `LICENSE_NAME.txt` format)
