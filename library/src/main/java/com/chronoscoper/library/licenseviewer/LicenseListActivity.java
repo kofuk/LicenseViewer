@@ -26,7 +26,7 @@ import android.widget.ListView;
 
 import java.io.IOException;
 
-public class LicenseListActivity extends Activity {
+class LicenseListActivity extends Activity {
     static final String EXTRA_TITLE = "com.chronoscoper.library.licenseviewer.extra.TITLE";
 
     private String[] mLicenses;
