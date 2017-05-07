@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-class LicenseActivity extends Activity {
+public class LicenseActivity extends Activity {
     static final String EXTRA_LICENSE_NAME =
             "com.chronoscoper.library.licenseviewer.extra.LICENSE_NAME";
 
