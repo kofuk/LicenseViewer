@@ -18,18 +18,19 @@ package com.chronoscoper.library.licenseviewer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.io.IOException;
 
 public class LicenseListActivity extends Activity {
     static final String EXTRA_TITLE = "com.chronoscoper.library.licenseviewer.extra.TITLE";
 
-    private String[] mLicenses;
+    private SearchableListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class LicenseListActivity extends Activity {
             }
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        String[] mLicenses;
         try {
             mLicenses = getAssets().list("license");
         } catch (IOException e) {
@@ -55,18 +56,45 @@ public class LicenseListActivity extends Activity {
             mLicenses[i] = mLicenses[i].replaceAll(".txt", "");
         }
 
-        ListView listView = (ListView) findViewById(R.id.list);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLicenses);
-        listView.setAdapter(adapter);
+        final ListView listView = (ListView) findViewById(R.id.list);
+        mAdapter = new SearchableListAdapter(this, mLicenses);
+        listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(LicenseListActivity.this, LicenseActivity.class);
-                intent.putExtra(LicenseActivity.EXTRA_LICENSE_NAME, mLicenses[position]);
+                intent.putExtra(LicenseActivity.EXTRA_LICENSE_NAME,
+                        mAdapter.getLicenseName(position));
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.lv_license_list_option, menu);
+
+        MenuItem item = menu.findItem(R.id.lv_menu_search);
+
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setSubmitButtonEnabled(false);
+        searchView.setQueryHint(getString(android.R.string.search_go) + "…");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mAdapter.setQuery(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.setQuery(newText);
+                return true;
+            }
+        });
+        return true;
     }
 
     @Override
