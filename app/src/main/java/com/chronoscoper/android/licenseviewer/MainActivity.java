@@ -18,6 +18,8 @@ package com.chronoscoper.android.licenseviewer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Switch;
 
 import com.chronoscoper.library.licenseviewer.LicenseViewer;
 
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View v) {
-        LicenseViewer.open(this, "Licenses");
+        LicenseViewer.open(this,
+                ((EditText) findViewById(R.id.window_title)).getText().toString(),
+                ((Switch) findViewById(R.id.enable_search)).isChecked());
     }
 }
