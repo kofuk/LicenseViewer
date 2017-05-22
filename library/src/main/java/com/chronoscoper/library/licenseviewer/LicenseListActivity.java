@@ -29,6 +29,8 @@ import java.io.IOException;
 
 public class LicenseListActivity extends Activity {
     static final String EXTRA_TITLE = "com.chronoscoper.library.licenseviewer.extra.TITLE";
+    static final String EXTRA_ENABLE_SEARCH =
+            "com.chronoscoper.library.licenseviewer.extra.ENABLE_SEARCH";
 
     private SearchableListAdapter mAdapter;
 
@@ -72,8 +74,9 @@ public class LicenseListActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.lv_license_list_option, menu);
+        if (!getIntent().getBooleanExtra(EXTRA_ENABLE_SEARCH, false)) return false;
 
+        getMenuInflater().inflate(R.menu.lv_license_list_option, menu);
         MenuItem item = menu.findItem(R.id.lv_menu_search);
 
         SearchView searchView = (SearchView) item.getActionView();

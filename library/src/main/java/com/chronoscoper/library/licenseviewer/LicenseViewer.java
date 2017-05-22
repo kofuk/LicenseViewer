@@ -27,8 +27,20 @@ public final class LicenseViewer {
      * @param windowTitle a string shown as a title of the activity
      */
     public static void open(Context context, String windowTitle) {
+        open(context, windowTitle, false);
+    }
+
+    /**
+     * Opens the list of licenses.
+     *
+     * @param context             Android Context
+     * @param windowTitle         a string shown as a title of the activity
+     * @param showSearchInterface shows a search icon or not
+     */
+    public static void open(Context context, String windowTitle, boolean showSearchInterface) {
         Intent intent = new Intent(context, LicenseListActivity.class);
         intent.putExtra(LicenseListActivity.EXTRA_TITLE, windowTitle);
+        intent.putExtra(LicenseListActivity.EXTRA_ENABLE_SEARCH, showSearchInterface);
         context.startActivity(intent);
     }
 }
