@@ -15,8 +15,10 @@
  */
 package com.chronoscoper.library.licenseviewer;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -25,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class LicenseActivity extends Activity {
+public class LicenseActivity extends AppCompatActivity {
     static final String EXTRA_LICENSE_NAME =
             "com.chronoscoper.library.licenseviewer.extra.LICENSE_NAME";
 
@@ -40,10 +42,13 @@ public class LicenseActivity extends Activity {
             return;
         }
 
-        if (getActionBar() != null) {
-            getActionBar().setTitle(licenseName);
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setTitle(licenseName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
@@ -76,5 +81,14 @@ public class LicenseActivity extends Activity {
             } catch (IOException ignore) {
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

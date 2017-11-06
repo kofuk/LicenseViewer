@@ -15,19 +15,24 @@
  */
 package com.chronoscoper.library.licenseviewer;
 
-import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import java.io.IOException;
 
-public class LicenseListActivity extends Activity {
+public class LicenseListActivity extends AppCompatActivity {
     static final String EXTRA_TITLE = "com.chronoscoper.library.licenseviewer.extra.TITLE";
     static final String EXTRA_ENABLE_SEARCH =
             "com.chronoscoper.library.licenseviewer.extra.ENABLE_SEARCH";
@@ -37,14 +42,15 @@ public class LicenseListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         setContentView(R.layout.lv_activity_license_list);
 
         String title;
-        if (getActionBar() != null) {
+        if (getSupportActionBar() != null) {
             if ((title = getIntent().getStringExtra(EXTRA_TITLE)) != null) {
-                getActionBar().setTitle(title);
+                getSupportActionBar().setTitle(title);
             }
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         String[] mLicenses;
         try {
@@ -58,18 +64,42 @@ public class LicenseListActivity extends Activity {
             mLicenses[i] = mLicenses[i].replaceAll(".txt", "");
         }
 
-        final ListView listView = (ListView) findViewById(R.id.list);
+        final ListView listView = findViewById(R.id.list);
         mAdapter = new SearchableListAdapter(this, mLicenses);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(LicenseListActivity.this, LicenseActivity.class);
-                intent.putExtra(LicenseActivity.EXTRA_LICENSE_NAME,
-                        mAdapter.getLicenseName(position));
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    openLicenseV21(view, position);
+                } else {
+                    openLicense(view, position);
+                }
             }
         });
+        final Animation slide = AnimationUtils.loadAnimation(this, R.anim.lv_slide_up);
+        listView.clearAnimation();
+        listView.setAnimation(slide);
+        listView.setVisibility(View.VISIBLE);
+        slide.start();
+    }
+
+    private void openLicense(View view, int position) {
+        Intent intent = new Intent(LicenseListActivity.this, LicenseActivity.class);
+        intent.putExtra(LicenseActivity.EXTRA_LICENSE_NAME,
+                mAdapter.getLicenseName(position));
+        startActivity(intent);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private void openLicenseV21(View view, int position) {
+        Intent intent = new Intent(LicenseListActivity.this, LicenseActivity.class);
+        intent.putExtra(LicenseActivity.EXTRA_LICENSE_NAME,
+                mAdapter.getLicenseName(position));
+        view.setTransitionName("title");
+        ActivityOptions options = ActivityOptions
+                .makeSceneTransitionAnimation(LicenseListActivity.this, view, "title");
+        startActivity(intent, options.toBundle());
     }
 
     @Override
@@ -109,5 +139,30 @@ public class LicenseListActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void finish() {
+        final ListView listView = findViewById(R.id.list);
+        final Animation slide = AnimationUtils.loadAnimation(this, R.anim.lv_slide_down);
+        listView.clearAnimation();
+        listView.setAnimation(slide);
+        slide.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                LicenseListActivity.super.finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        slide.start();
+        listView.setVisibility(View.INVISIBLE);
     }
 }

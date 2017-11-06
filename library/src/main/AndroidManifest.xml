@@ -24,12 +24,11 @@
         <activity
             android:name=".LicenseListActivity"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.DeviceDefault.Light"/>
+            android:theme="@style/LicenseViewer"/>
         <activity
             android:name=".LicenseActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".LicenseListActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Light"/>
+            android:theme="@style/LicenseViewer.NoActionBar"/>
     </application>
 
 </manifest>
