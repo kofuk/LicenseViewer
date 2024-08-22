@@ -5,14 +5,23 @@ License Viewer is a library to show legal information of your Android app.
 
 ## Usage
 0. Add dependency:
+```gradle
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' } // <-- Add this
+}
 ```
-compile 'com.chronoscoper.library:license-viewer:1.3'
+```gradle
+compile 'com.github.kofuk:LicenseViewer:1.6.5'
 ```
 
 1. Put your license text files in your `assets/license` folder. (File name must be `LICENSE_NAME.txt` format)
 
 2. Open licenses from your java code.
 ```
+import com.chronoscoper.library.licenseviewer.LicenseViewer;
+
 public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
