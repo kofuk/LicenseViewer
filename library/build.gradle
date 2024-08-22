@@ -41,7 +41,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.kofuk'
             artifactId = 'LicenseViewer'
-            version = '1.6.2'
+            version = '1.6.3'
 
             afterEvaluate {
                 from components.release
