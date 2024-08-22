@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.List;
 
 class SearchableListAdapter extends BaseAdapter {
-    private Context mContext;
-    private String[] mLicensesSource;
+    private final Context mContext;
+    private final String[] mLicensesSource;
 
     SearchableListAdapter(Context context, String[] licenses) {
         mContext = context;
@@ -39,7 +39,7 @@ class SearchableListAdapter extends BaseAdapter {
         Collections.addAll(mQueryHandledLicenses, licenses);
     }
 
-    private List<String> mQueryHandledLicenses;
+    private final List<String> mQueryHandledLicenses;
 
     @Override
     public int getCount() {
@@ -80,9 +80,7 @@ class SearchableListAdapter extends BaseAdapter {
 
             for (String s : mLicensesSource) {
                 if (s != null && s.contains(query)) {
-                    if (s.contains(query)) {
-                        mQueryHandledLicenses.add(s);
-                    }
+                    mQueryHandledLicenses.add(s);
                 }
             }
         }
