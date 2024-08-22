@@ -39,9 +39,9 @@ android {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'com.chronoscoper.library'
-            artifactId = 'licenseviewer'
-            version = '1.6.1'
+            groupId = 'com.github.kofuk'
+            artifactId = 'LicenseViewer'
+            version = '1.6.2'
 
             afterEvaluate {
                 from components.release
