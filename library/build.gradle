@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id 'maven-publish'
 }
 
 android {
@@ -11,7 +12,6 @@ android {
     defaultConfig {
         minSdk 23
         targetSdk 34
-        versionName '1.6.0'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -33,6 +33,20 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.chronoscoper.library'
+            artifactId = 'licenseviewer'
+            version = '1.6.0'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
     }
 }
 
