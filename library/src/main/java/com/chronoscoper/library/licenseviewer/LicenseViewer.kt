@@ -13,34 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chronoscoper.library.licenseviewer;
+package com.chronoscoper.library.licenseviewer
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.Context
+import android.content.Intent
 
-public final class LicenseViewer {
-
+object LicenseViewer {
     /**
      * Opens the list of licenses.
      *
      * @param context     Android Context
      * @param windowTitle a string shown as a title of the activity
-     */
-    public static void open(Context context, String windowTitle) {
-        open(context, windowTitle, false);
-    }
-
-    /**
-     * Opens the list of licenses.
-     *
-     * @param context             Android Context
-     * @param windowTitle         a string shown as a title of the activity
      * @param showSearchInterface shows a search icon or not
      */
-    public static void open(Context context, String windowTitle, boolean showSearchInterface) {
-        Intent intent = new Intent(context, LicenseListActivity.class);
-        intent.putExtra(LicenseListActivity.EXTRA_TITLE, windowTitle);
-        intent.putExtra(LicenseListActivity.EXTRA_ENABLE_SEARCH, showSearchInterface);
-        context.startActivity(intent);
+    @JvmStatic
+    @JvmOverloads
+    fun open(context: Context, windowTitle: String?, showSearchInterface: Boolean = false) {
+        val intent = Intent(context, LicenseListActivity::class.java)
+        intent.putExtra(LicenseListActivity.EXTRA_TITLE, windowTitle)
+        intent.putExtra(LicenseListActivity.EXTRA_ENABLE_SEARCH, showSearchInterface)
+        context.startActivity(intent)
     }
 }
