@@ -41,7 +41,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.chronoscoper.library'
             artifactId = 'licenseviewer'
-            version = '1.6.0'
+            version = '1.6.1'
 
             afterEvaluate {
                 from components.release
