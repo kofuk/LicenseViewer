@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
-   Copyright 2017 KoFuk
+   Copyright 2017-2024 Koki Fukuda
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,8 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,20 +25,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:transitionName="title"/>
+        android:transitionName="title" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar">
+        android:layout_alignParentLeft="true">
 
         <TextView
             android:id="@+id/license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
     </ScrollView>
 </RelativeLayout>

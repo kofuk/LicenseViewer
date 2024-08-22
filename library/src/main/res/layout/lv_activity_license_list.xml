@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
-   Copyright 2017 KoFuk
+   Copyright 2017-2024 Koki Fukuda
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,20 +15,19 @@
    See the License for the specific language governing permissions and
    limitations under the License.
    -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#5f000000"/>
+        android:background="#5f000000" />
 
     <ListView
         android:id="@+id/list"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_light"/>
+        android:background="@android:color/background_light"
+        android:visibility="invisible" />
 </FrameLayout>
